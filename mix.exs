@@ -77,7 +77,7 @@ defmodule Sourceplot.MixProject do
       "assets.setup": ["tailwind.install --if-missing"],
       "assets.build": ["tailwind default"],
       "assets.deploy": [
-        "tailwind <app_name> --minify",
+        "tailwind sourceplot --minify",
         "cmd --cd assets node build.js --deploy",
         "phx.digest"
       ]

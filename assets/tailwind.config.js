@@ -1,12 +1,18 @@
 // See the Tailwind configuration guide for advanced usage
 // https://tailwindcss.com/docs/configuration
 
-const plugin = require("tailwindcss/plugin");
-const fs = require("fs");
-const path = require("path");
+import plugin from "tailwindcss/plugin";
+import fs from "fs";
+import path from "path";
+import tailwindForms from "@tailwindcss/forms";
 
-module.exports = {
-	content: ["./js/**/*.js", "../lib/sourceplot_web.ex", "../lib/sourceplot_web/**/*.*ex", "./svelte/**/*.svelte"],
+export default {
+	content: [
+		"./js/**/*.js",
+		"../lib/sourceplot_web.ex",
+		"../lib/sourceplot_web/**/*.*ex",
+		"./svelte/**/*.svelte"
+	],
 	theme: {
 		extend: {
 			colors: {
@@ -15,7 +21,7 @@ module.exports = {
 		}
 	},
 	plugins: [
-		require("@tailwindcss/forms"),
+		tailwindForms,
 		// Allows prefixing tailwind classes with LiveView classes to add rules
 		// only when LiveView classes are applied, for example:
 		//

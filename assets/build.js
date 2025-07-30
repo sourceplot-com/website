@@ -1,21 +1,24 @@
-const esbuild = require("esbuild");
-const sveltePlugin = require("esbuild-svelte");
-const importGlobPlugin = require("esbuild-plugin-import-glob").default;
-const sveltePreprocess = require("svelte-preprocess");
+import { context, build } from "esbuild";
+import sveltePlugin from "esbuild-svelte";
+import ImportGlobPlugin from "esbuild-plugin-import-glob";
+import { sveltePreprocess } from "svelte-preprocess";
 
 const args = process.argv.slice(2);
 const watch = args.includes("--watch");
 const deploy = args.includes("--deploy");
 
-let clientConditions = ["svelte", "browser"];
-let serverConditions = ["svelte"];
+const clientConditions = ["svelte", "browser"];
+const serverConditions = ["svelte"];
 
 if (!deploy) {
 	clientConditions.push("development");
 	serverConditions.push("development");
 }
 
-let optsClient = {
+/**
+ * @type {import("esbuild").BuildOptions}
+ */
+const optsClient = {
 	entryPoints: ["js/app.js"],
 	bundle: true,
 	minify: deploy,
@@ -26,7 +29,7 @@ let optsClient = {
 	sourcemap: watch ? "inline" : false,
 	tsconfig: "./tsconfig.json",
 	plugins: [
-		importGlobPlugin(),
+		ImportGlobPlugin.default(),
 		sveltePlugin({
 			preprocess: sveltePreprocess(),
 			compilerOptions: { dev: !deploy, css: "injected", generate: "client" }
@@ -34,12 +37,15 @@ let optsClient = {
 	]
 };
 
-let optsServer = {
+/**
+ * @type {import("esbuild").BuildOptions}
+ */
+const optsServer = {
 	entryPoints: ["js/server.js"],
 	platform: "node",
 	bundle: true,
 	minify: false,
-	target: "node19.6.1",
+	target: "node22.17.0",
 	conditions: serverConditions,
 	alias: { svelte: "svelte" },
 	outdir: "../priv/svelte",
@@ -47,7 +53,7 @@ let optsServer = {
 	sourcemap: watch ? "inline" : false,
 	tsconfig: "./tsconfig.json",
 	plugins: [
-		importGlobPlugin(),
+		ImportGlobPlugin.default(),
 		sveltePlugin({
 			preprocess: sveltePreprocess(),
 			compilerOptions: { dev: !deploy, css: "injected", generate: "server" }
@@ -56,16 +62,14 @@ let optsServer = {
 };
 
 if (watch) {
-	esbuild
-		.context(optsClient)
+	context(optsClient)
 		.then((ctx) => ctx.watch())
 		.catch((_error) => process.exit(1));
 
-	esbuild
-		.context(optsServer)
+	context(optsServer)
 		.then((ctx) => ctx.watch())
 		.catch((_error) => process.exit(1));
 } else {
-	esbuild.build(optsClient);
-	esbuild.build(optsServer);
+	build(optsClient);
+	build(optsServer);
 }

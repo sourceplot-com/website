@@ -1,8 +1,8 @@
-// import "./user_socket.js"
+import "phoenix_html";
+
 import * as Components from "../svelte/**/*.svelte";
 import { getHooks } from "live_svelte";
 import { Socket } from "phoenix";
-import "phoenix_html";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "topbar";
 
@@ -12,7 +12,12 @@ const hooks = {
 	...getHooks(Components)
 };
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+const csrfTokenTag = document.querySelector("meta[name='csrf-token']");
+if (!csrfTokenTag) {
+	throw new Error("Missing csrf-token meta tag");
+}
+
+let csrfToken = csrfTokenTag.getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, { hooks, params: { _csrf_token: csrfToken } });
 
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
