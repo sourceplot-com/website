@@ -89,6 +89,7 @@ defmodule SourceplotWeb do
       import Phoenix.HTML
       # Core UI components
       import SourceplotWeb.CoreComponents
+      import LiveSvelte
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

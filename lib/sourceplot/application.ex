@@ -8,6 +8,7 @@ defmodule Sourceplot.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {NodeJS.Supervisor, [path: LiveSvelte.SSR.NodeJS.server_path(), pool_size: 4]},
       SourceplotWeb.Telemetry,
       Sourceplot.Repo,
       {DNSCluster, query: Application.get_env(:sourceplot, :dns_cluster_query) || :ignore},

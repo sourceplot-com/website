@@ -9,7 +9,8 @@ module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/sourceplot_web.ex",
-    "../lib/sourceplot_web/**/*.*ex"
+    "../lib/sourceplot_web/**/*.*ex",
+    "./svelte/**/*.svelte"
   ],
   theme: {
     extend: {
