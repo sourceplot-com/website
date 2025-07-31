@@ -115,35 +115,35 @@ defmodule SourceplotWeb.UserAuth do
 
   ## `on_mount` arguments
 
-    * `:mount_current_user` - Assigns current_user
-      to socket assigns based on user_token, or nil if
-      there's no user_token or no matching user.
+  * `:mount_current_user` - Assigns current_user
+  to socket assigns based on user_token, or nil if
+  there's no user_token or no matching user.
 
-    * `:ensure_authenticated` - Authenticates the user from the session,
-      and assigns the current_user to socket assigns based
-      on user_token.
-      Redirects to login page if there's no logged user.
+  * `:ensure_authenticated` - Authenticates the user from the session,
+  and assigns the current_user to socket assigns based
+  on user_token.
+  Redirects to login page if there's no logged user.
 
-    * `:redirect_if_user_is_authenticated` - Authenticates the user from the session.
-      Redirects to signed_in_path if there's a logged user.
+  * `:redirect_if_user_is_authenticated` - Authenticates the user from the session.
+  Redirects to signed_in_path if there's a logged user.
 
   ## Examples
 
   Use the `on_mount` lifecycle macro in LiveViews to mount or authenticate
   the current_user:
 
-      defmodule SourceplotWeb.PageLive do
-        use SourceplotWeb, :live_view
+  defmodule SourceplotWeb.PageLive do
+      use SourceplotWeb, :live_view
 
-        on_mount {SourceplotWeb.UserAuth, :mount_current_user}
-        ...
-      end
+      on_mount {SourceplotWeb.UserAuth, :mount_current_user}
+      ...
+  end
 
   Or use the `live_session` of your router to invoke the on_mount callback:
 
-      live_session :authenticated, on_mount: [{SourceplotWeb.UserAuth, :ensure_authenticated}] do
-        live "/profile", ProfileLive, :index
-      end
+  live_session :authenticated, on_mount: [{SourceplotWeb.UserAuth, :ensure_authenticated}] do
+      live "/profile", ProfileLive, :index
+  end
   """
   def on_mount(:mount_current_user, _params, session, socket) do
     {:cont, mount_current_user(socket, session)}
