@@ -20,13 +20,8 @@ defmodule SourceplotWeb.Router do
   scope "/", SourceplotWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", SourceplotWeb do
-  #   pipe_through :api
-  # end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:sourceplot, :dev_routes) do
