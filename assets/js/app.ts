@@ -1,8 +1,7 @@
-import "phoenix_html";
-
 import * as Components from "../svelte/**/*.svelte";
 import { getHooks } from "live_svelte";
 import { Socket } from "phoenix";
+import "phoenix_html";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "topbar";
 

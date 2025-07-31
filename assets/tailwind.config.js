@@ -1,18 +1,12 @@
 // See the Tailwind configuration guide for advanced usage
 // https://tailwindcss.com/docs/configuration
-
-import plugin from "tailwindcss/plugin";
+import tailwindForms from "@tailwindcss/forms";
 import fs from "fs";
 import path from "path";
-import tailwindForms from "@tailwindcss/forms";
+import plugin from "tailwindcss/plugin";
 
 export default {
-	content: [
-		"./js/**/*.js",
-		"../lib/sourceplot_web.ex",
-		"../lib/sourceplot_web/**/*.*ex",
-		"./svelte/**/*.svelte"
-	],
+	content: ["./js/**/*.js", "../lib/sourceplot_web.ex", "../lib/sourceplot_web/**/*.*ex", "./svelte/**/*.svelte"],
 	theme: {
 		extend: {
 			colors: {

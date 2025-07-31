@@ -19,5 +19,5 @@
 			"$lib/*": ["svelte/*"]
 		}
 	},
-	"exclude": ["eslint.config.js", "tailwind.config.js", "build.js"]
+	"exclude": ["eslint.config.js", "tailwind.config.js", "build.js", "node_modules"]
 }

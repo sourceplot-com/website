@@ -1,6 +1,6 @@
-import { context, build } from "esbuild";
-import sveltePlugin from "esbuild-svelte";
+import { build, context } from "esbuild";
 import ImportGlobPlugin from "esbuild-plugin-import-glob";
+import sveltePlugin from "esbuild-svelte";
 import { sveltePreprocess } from "svelte-preprocess";
 
 const args = process.argv.slice(2);
