@@ -1,4 +1,4 @@
-defmodule SourceplotWeb.HomeLive do
+defmodule SourceplotWeb.App do
   use SourceplotWeb, :live_view
   use LiveSvelte.Components
 

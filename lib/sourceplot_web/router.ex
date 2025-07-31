@@ -20,7 +20,7 @@ defmodule SourceplotWeb.Router do
   scope "/", SourceplotWeb do
     pipe_through :browser
 
-    live "/", HomeLive, :index
+    live "/", App, :index
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -47,13 +47,13 @@ defmodule SourceplotWeb.Router do
 
     live_session :redirect_if_user_is_authenticated,
       on_mount: [{SourceplotWeb.UserAuth, :redirect_if_user_is_authenticated}] do
-      live "/users/register", UserRegistrationLive, :new
-      live "/users/log_in", UserLoginLive, :new
-      live "/users/reset_password", UserForgotPasswordLive, :new
-      live "/users/reset_password/:token", UserResetPasswordLive, :edit
+      live "/users/register", App.Users.Register, :new
+      live "/users/login", App.Users.Login, :new
+      live "/users/reset_password", App.Users.ResetPassword, :new
+      live "/users/reset_password/:token", App.Users.ResetPassword.Token, :edit
     end
 
-    post "/users/log_in", UserSessionController, :create
+    post "/users/login", Users.SessionController, :create
   end
 
   scope "/", SourceplotWeb do
@@ -61,20 +61,20 @@ defmodule SourceplotWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{SourceplotWeb.UserAuth, :ensure_authenticated}] do
-      live "/users/settings", UserSettingsLive, :edit
-      live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/users/settings", App.Users.Settings, :edit
+      live "/users/settings/confirm_email/:token", App.Users.Settings, :confirm_email
     end
   end
 
   scope "/", SourceplotWeb do
     pipe_through [:browser]
 
-    delete "/users/log_out", UserSessionController, :delete
+    delete "/users/log_out", Users.SessionController, :delete
 
     live_session :current_user,
       on_mount: [{SourceplotWeb.UserAuth, :mount_current_user}] do
-      live "/users/confirm/:token", UserConfirmationLive, :edit
-      live "/users/confirm", UserConfirmationInstructionsLive, :new
+      live "/users/confirm/:token", App.Users.Confirm.Token, :edit
+      live "/users/confirm", App.Users.Confirm, :new
     end
   end
 end
