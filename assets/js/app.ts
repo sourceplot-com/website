@@ -4,10 +4,10 @@ import { Socket } from "phoenix";
 import "phoenix_html";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "topbar";
+import { createLiveJsonHooks } from "live_json";
 
 const hooks = {
-	// TODO?
-	// ...createLiveJsonHooks(),
+	...createLiveJsonHooks(),
 	...getHooks(Components)
 };
 
