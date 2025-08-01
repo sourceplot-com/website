@@ -33,4 +33,12 @@ config :logger, :console,
 
 config :phoenix, :json_library, Jason
 
+config :sourceplot, :aws,
+  region: System.get_env("AWS_REGION"),
+
+  daily_stats_table_name: System.get_env("DAILY_STATS_TABLE_NAME"),
+  daily_stats_table_date_index: System.get_env("DAILY_STATS_TABLE_DATE_INDEX"),
+  daily_stats_user_access_key_id: System.get_env("DAILY_STATS_USER_ACCESS_KEY_ID"),
+  daily_stats_user_secret_access_key: System.get_env("DAILY_STATS_USER_SECRET_ACCESS_KEY")
+
 import_config "#{config_env()}.exs"
