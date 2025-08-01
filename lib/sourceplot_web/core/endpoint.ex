@@ -1,4 +1,4 @@
-defmodule SourceplotWeb.Endpoint do
+defmodule SourceplotWeb.Core.Endpoint do
   use Phoenix.Endpoint, otp_app: :sourceplot
 
   # The session will be stored in the cookie and signed,
@@ -49,5 +49,5 @@ defmodule SourceplotWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug SourceplotWeb.Router
+  plug SourceplotWeb.Core.Router
 end

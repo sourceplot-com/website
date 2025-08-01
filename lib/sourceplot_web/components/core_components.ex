@@ -15,7 +15,7 @@ defmodule SourceplotWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
-  use Gettext, backend: SourceplotWeb.Gettext
+  use Gettext, backend: SourceplotWeb.Core.Gettext
 
   alias Phoenix.LiveView.JS
 
@@ -654,9 +654,9 @@ defmodule SourceplotWeb.CoreComponents do
     # with our gettext backend as first argument. Translations are
     # available in the errors.po file (as we use the "errors" domain).
     if count = opts[:count] do
-      Gettext.dngettext(SourceplotWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(SourceplotWeb.Core.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(SourceplotWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(SourceplotWeb.Core.Gettext, "errors", msg, opts)
     end
   end
 

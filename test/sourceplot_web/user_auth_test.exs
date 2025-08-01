@@ -1,9 +1,9 @@
-defmodule SourceplotWeb.UserAuthTest do
+defmodule SourceplotWeb.Auth.UserAuthTest do
   use SourceplotWeb.ConnCase, async: true
 
   alias Phoenix.LiveView
   alias Sourceplot.Users
-  alias SourceplotWeb.UserAuth
+  alias SourceplotWeb.Auth.UserAuth
   import Sourceplot.UsersFixtures
 
   @remember_me_cookie "_sourceplot_web_user_remember_me"
@@ -11,7 +11,7 @@ defmodule SourceplotWeb.UserAuthTest do
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, SourceplotWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, SourceplotWeb.Core.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -66,7 +66,7 @@ defmodule SourceplotWeb.UserAuthTest do
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
       live_socket_id = "users_sessions:abcdef-token"
-      SourceplotWeb.Endpoint.subscribe(live_socket_id)
+      SourceplotWeb.Core.Endpoint.subscribe(live_socket_id)
 
       conn
       |> put_session(:live_socket_id, live_socket_id)
@@ -164,7 +164,7 @@ defmodule SourceplotWeb.UserAuthTest do
       session = conn |> put_session(:user_token, user_token) |> get_session()
 
       socket = %LiveView.Socket{
-        endpoint: SourceplotWeb.Endpoint,
+        endpoint: SourceplotWeb.Core.Endpoint,
         assigns: %{__changed__: %{}, flash: %{}}
       }
 
@@ -176,7 +176,7 @@ defmodule SourceplotWeb.UserAuthTest do
       session = conn |> get_session()
 
       socket = %LiveView.Socket{
-        endpoint: SourceplotWeb.Endpoint,
+        endpoint: SourceplotWeb.Core.Endpoint,
         assigns: %{__changed__: %{}, flash: %{}}
       }
 

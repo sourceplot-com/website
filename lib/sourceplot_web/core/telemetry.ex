@@ -1,4 +1,4 @@
-defmodule SourceplotWeb.Telemetry do
+defmodule SourceplotWeb.Core.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 

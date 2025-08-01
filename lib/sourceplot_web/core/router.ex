@@ -1,7 +1,7 @@
-defmodule SourceplotWeb.Router do
+defmodule SourceplotWeb.Core.Router do
   use SourceplotWeb, :router
 
-  import SourceplotWeb.UserAuth
+  import SourceplotWeb.Auth.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -35,7 +35,7 @@ defmodule SourceplotWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: SourceplotWeb.Telemetry
+      live_dashboard "/dashboard", metrics: SourceplotWeb.Core.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
@@ -46,7 +46,7 @@ defmodule SourceplotWeb.Router do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     live_session :redirect_if_user_is_authenticated,
-      on_mount: [{SourceplotWeb.UserAuth, :redirect_if_user_is_authenticated}] do
+      on_mount: [{SourceplotWeb.Auth.UserAuth, :redirect_if_user_is_authenticated}] do
       live "/users/register", App.Users.Register, :new
       live "/users/login", App.Users.Login, :new
       live "/users/reset_password", App.Users.ResetPassword, :new
@@ -60,7 +60,7 @@ defmodule SourceplotWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{SourceplotWeb.UserAuth, :ensure_authenticated}] do
+      on_mount: [{SourceplotWeb.Auth.UserAuth, :ensure_authenticated}] do
       live "/users/settings", App.Users.Settings, :edit
       live "/users/settings/confirm_email/:token", App.Users.Settings, :confirm_email
     end
@@ -72,7 +72,7 @@ defmodule SourceplotWeb.Router do
     delete "/users/log_out", Users.SessionController, :delete
 
     live_session :current_user,
-      on_mount: [{SourceplotWeb.UserAuth, :mount_current_user}] do
+      on_mount: [{SourceplotWeb.Auth.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", App.Users.Confirm.Token, :edit
       live "/users/confirm", App.Users.Confirm, :new
     end

@@ -2,7 +2,7 @@ defmodule SourceplotWeb.Users.SessionController do
   use SourceplotWeb, :controller
 
   alias Sourceplot.Users
-  alias SourceplotWeb.UserAuth
+  alias SourceplotWeb.Auth.UserAuth
 
   def create(conn, %{"_action" => "registered"} = params) do
     create(conn, params, "Account created successfully!")

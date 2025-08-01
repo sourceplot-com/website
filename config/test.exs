@@ -10,7 +10,7 @@ config :sourceplot, Sourceplot.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
-config :sourceplot, SourceplotWeb.Endpoint,
+config :sourceplot, SourceplotWeb.Core.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "Uh7zUYiUDa7A21zu01bVotmYdDeLSWI9JvW5pabT9+GDZUXwX3d4tBZBUvhV5WMo",
   server: false

@@ -1,4 +1,4 @@
-defmodule SourceplotWeb.UserAuth do
+defmodule SourceplotWeb.Auth.UserAuth do
   use SourceplotWeb, :verified_routes
 
   import Plug.Conn
@@ -77,7 +77,7 @@ defmodule SourceplotWeb.UserAuth do
     user_token && Users.delete_user_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      SourceplotWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      SourceplotWeb.Core.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn
@@ -135,13 +135,13 @@ defmodule SourceplotWeb.UserAuth do
   defmodule SourceplotWeb.PageLive do
       use SourceplotWeb, :live_view
 
-      on_mount {SourceplotWeb.UserAuth, :mount_current_user}
+      on_mount {SourceplotWeb.Auth.UserAuth, :mount_current_user}
       ...
   end
 
   Or use the `live_session` of your router to invoke the on_mount callback:
 
-  live_session :authenticated, on_mount: [{SourceplotWeb.UserAuth, :ensure_authenticated}] do
+      live_session :authenticated, on_mount: [{SourceplotWeb.Auth.UserAuth, :ensure_authenticated}] do
       live "/profile", ProfileLive, :index
   end
   """

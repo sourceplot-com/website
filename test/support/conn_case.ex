@@ -20,7 +20,7 @@ defmodule SourceplotWeb.ConnCase do
   using do
     quote do
       # The default endpoint for testing
-      @endpoint SourceplotWeb.Endpoint
+      @endpoint SourceplotWeb.Core.Endpoint
 
       use SourceplotWeb, :verified_routes
 

@@ -9,7 +9,7 @@ config :sourceplot, Sourceplot.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :sourceplot, SourceplotWeb.Endpoint,
+config :sourceplot, SourceplotWeb.Core.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
@@ -44,7 +44,7 @@ config :sourceplot, SourceplotWeb.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
-config :sourceplot, SourceplotWeb.Endpoint,
+config :sourceplot, SourceplotWeb.Core.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",

@@ -4,7 +4,7 @@ config :sourceplot,
   ecto_repos: [Sourceplot.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
 
-config :sourceplot, SourceplotWeb.Endpoint,
+config :sourceplot, SourceplotWeb.Core.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [

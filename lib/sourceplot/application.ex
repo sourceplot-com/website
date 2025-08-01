@@ -9,7 +9,7 @@ defmodule Sourceplot.Application do
   def start(_type, _args) do
     children = [
       {NodeJS.Supervisor, [path: LiveSvelte.SSR.NodeJS.server_path(), pool_size: 4]},
-      SourceplotWeb.Telemetry,
+      SourceplotWeb.Core.Telemetry,
       Sourceplot.Repo,
       {DNSCluster, query: Application.get_env(:sourceplot, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Sourceplot.PubSub},
@@ -18,7 +18,7 @@ defmodule Sourceplot.Application do
       # Start a worker by calling: Sourceplot.Worker.start_link(arg)
       # {Sourceplot.Worker, arg},
       # Start to serve requests, typically the last entry
-      SourceplotWeb.Endpoint
+      SourceplotWeb.Core.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -31,7 +31,7 @@ defmodule Sourceplot.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    SourceplotWeb.Endpoint.config_change(changed, removed)
+    SourceplotWeb.Core.Endpoint.config_change(changed, removed)
     :ok
   end
 end

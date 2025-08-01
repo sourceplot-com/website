@@ -23,7 +23,7 @@ defmodule SourceplotWeb do
         formats: [:html, :json],
         layouts: [html: SourceplotWeb.Layouts]
 
-      use Gettext, backend: SourceplotWeb.Gettext
+      use Gettext, backend: SourceplotWeb.Core.Gettext
 
       import Plug.Conn
 
@@ -61,7 +61,7 @@ defmodule SourceplotWeb do
 
   defp html_helpers do
     quote do
-      use Gettext, backend: SourceplotWeb.Gettext
+      use Gettext, backend: SourceplotWeb.Core.Gettext
 
       import Phoenix.HTML
       import SourceplotWeb.CoreComponents
@@ -75,8 +75,8 @@ defmodule SourceplotWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: SourceplotWeb.Endpoint,
-        router: SourceplotWeb.Router,
+        endpoint: SourceplotWeb.Core.Endpoint,
+        router: SourceplotWeb.Core.Router,
         statics: SourceplotWeb.static_paths()
     end
   end
